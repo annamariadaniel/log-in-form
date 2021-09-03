@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM assignment</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/e6c493181a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div id="login-container">
+    <form>
+      <div>
+        <label for="username">Username:</label>
+        <input id="username" type="text">
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input id="password" type="password">
+      </div>
+      <input type="submit" value="Login">
+    </form>
+  </div>
+
+  <script>
+    var loginContainer = document.getElementById("login-container");
+    var newUser = document.createElement("p");
+    var newPassword = document.createElement("p");
+    var newItemOne = document.createElement("span");
+    var newItemTwo = document.createElement("span");
+    loginContainer.append(newUser, newPassword);
+
+    loginContainer.addEventListener("submit", function(e) {
+
+      var username = document.getElementById("username").value;
+      document.getElementById("username").style.border = "solid red";
+
+      var password = document.getElementById("password").value;
+      document.getElementById("password").style.border = "solid red";
+
+      newItemOne.setAttribute("id", "error");
+      document.getElementsByTagName("div")[1].append(newItemOne);
+      document.getElementsByTagName("div")[1].style.cssText = "position:relative";
+      document.getElementById("error").style.cssText = "top: 40px; right: 10px";
+      newItemOne.setAttribute("class", "fas fa-times fa-2x text-danger d-flex position-absolute");
+      newItemTwo.setAttribute("id", "errorS");
+      document.getElementsByTagName("div")[2].append(newItemTwo);
+      document.getElementsByTagName("div")[2].style.cssText = "position:relative";
+      document.getElementById("errorS").style.cssText = "top: 40px; right: 10px";
+      newItemTwo.setAttribute("class", "fas fa-times fa-2x text-danger block text-align-right position-absolute");
+      e.preventDefault();
+
+      if (username === "") {
+        newUser.innerHTML = "*please, enter username!";
+      } else {
+        if (username !== "new_user") {
+          newUser.innerHTML = "*please, enter valid username!";
+        } else {
+          document.getElementById("username").style.border = "solid green";
+          newItemOne.classList.replace("text-danger", "text-success");
+          newItemOne.classList.replace("fa-times", "fa-check");
+          newUser.innerHTML = "";
+
+        }
+      }
+
+      if (password === "") {
+        newPassword.innerHTML = "*please, enter password!";
+      } else {
+        if (password !== "123456789") {
+          newPassword.innerHTML = "*please, enter valid password!";
+        } else {
+          document.getElementById("password").style.border = "solid green";
+          newItemTwo.classList.replace("text-danger", "text-success");
+          newItemTwo.classList.replace("fa-times", "fa-check");
+        }
+      }
+
+      if (username === "new_user" && password === "123456789") {
+        newPassword.innerHTML = "Successful login!";
+      }
+    });
+  </script>
+
+</body>
+
+</html>
